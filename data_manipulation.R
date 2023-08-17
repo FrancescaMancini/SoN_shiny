@@ -146,5 +146,5 @@
 #                  freshw) %>%
 #   mutate(metric = "Occupancy")
 # 
-# saveRDS(all_ind,
-#         "/data/son-databucket/outputs/brc-indicators/all_occ_lambda.rds")
+saveRDS(all_ind,
+        "./Data/all_occ_lambda.rds")

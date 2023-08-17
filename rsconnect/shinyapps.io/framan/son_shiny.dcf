@@ -1,0 +1,10 @@
+name: son_shiny
+title:
+username: framan
+account: framan
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9622514
+bundleId: 7578821
+url: https://framan.shinyapps.io/son_shiny/
+version: 1
