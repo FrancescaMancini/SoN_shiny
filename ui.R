@@ -1,26 +1,39 @@
   navbarPage(
     "Explore the State of Nature Indicators",
     tabPanel(
-    "Indicators",
+    "Occupancy indicators",
     fluidPage(
       theme = bslib::bs_theme(bootswatch = "sandstone"),
     sidebarLayout(
       sidebarPanel(
-        selectInput("selected_metric",
-                    "choose a metric",
-                    choices = ind_metric),
-        selectInput("selected_group",
+        selectInput("selected_occ_group",
                     "choose a taxonomic group",
-                    choices = NULL),
-        selectInput("selected_country",
+                    choices = ind_groups),
+        selectInput("selected_occ_country",
                     "choose a country",
                     choices = NULL),      
-        actionButton("plot", "plot"),
-        downloadButton("download_data", "Download .csv")), 
-      mainPanel(plotlyOutput("indicator_plot")
+        actionButton("plot_occ", "plot"),
+        downloadButton("download_occ_data", "Download .xlsx")), 
+      mainPanel(plotlyOutput("indicator_occ_plot")
         )
     )
   )
+  ),
+  tabPanel(
+    "Abundance indicators",
+    fluidPage(
+      theme = bslib::bs_theme(bootswatch = "sandstone"),
+      sidebarLayout(
+        sidebarPanel(
+          selectInput("selected_abnd_country",
+                      "choose a country",
+                      choices = abnd_countries),      
+          actionButton("plot_abnd", "plot"),
+          downloadButton("download_abnd_data", "Download .xlsx")), 
+        mainPanel(plotlyOutput("indicator_abnd_plot")
+        )
+      )
+    )
   ),
   tabPanel("Interpretation",
            fluidPage(
@@ -40,7 +53,7 @@
                       h2("What time period does the report cover?"),
                       p("We in general show abundance trends in species from 1970 to 2021 and distribution trends from 1970 to 2020. We refer to this as our long-term period. Our short-term period covers the final 10 years of an indicator, often 2010 to 2020.")),
                column(5, 
-                      plotOutput("interpretation_plot"))
+                      imageOutput("interpretation_plot"))
              )
 
              )
@@ -49,8 +62,3 @@
 )
   
   
-  # to do: 
-  # 1. add download figure and download data buttons
-  # 2. add percentage of species to the right of the plot  
-  # 4. hover on the graph to show number of species
-
