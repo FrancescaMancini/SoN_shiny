@@ -296,7 +296,7 @@
 # dev.off()
 # 
 # 
-# # abundance data
+# abundance data
 # 
 # UK_abnd <- read.csv(
 #   "/data/notebooks/rstudio-sonukabund/results/uk/uk_son23_geo_tpsci_ops_testing_240623.csv"
@@ -306,8 +306,8 @@
 #          rescale_t5tps_uci5, rescale_t5index,
 #          group, year) %>%
 #   rename(indicator = rescale_t5tps_ind5,
-#          lower = rescale_t5tps_lci5,
-#          upper = rescale_t5tps_uci5,
+#          upper = rescale_t5tps_lci5,
+#          lower = rescale_t5tps_uci5,
 #          indicator_unsm = rescale_t5index) %>%
 #   mutate(country = "UK")
 # 
@@ -319,8 +319,8 @@
 #          rescale_t5tps_uci5, rescale_t5index,
 #          group, year) %>%
 #   rename(indicator = rescale_t5tps_ind5,
-#          lower = rescale_t5tps_lci5,
-#          upper = rescale_t5tps_uci5,
+#          upper = rescale_t5tps_lci5,
+#          lower = rescale_t5tps_uci5,
 #          indicator_unsm = rescale_t5index) %>%
 #   mutate(country = "England")
 # 
@@ -332,8 +332,8 @@
 #          rescale_t3tps_uci3, rescale_t3index,
 #          group, year) %>%
 #   rename(indicator = rescale_t3tps_ind3,
-#          lower = rescale_t3tps_lci3,
-#          upper = rescale_t3tps_uci3,
+#          upper = rescale_t3tps_lci3,
+#          lower = rescale_t3tps_uci3,
 #          indicator_unsm = rescale_t3index) %>%
 #   mutate(country = "Scotland")
 # 
@@ -346,8 +346,8 @@
 #          rescale_t3tps_uci3, rescale_t3index,
 #          group, year) %>%
 #   rename(indicator = rescale_t3tps_ind3,
-#          lower = rescale_t3tps_lci3,
-#          upper = rescale_t3tps_uci3,
+#          upper = rescale_t3tps_lci3,
+#          lower = rescale_t3tps_uci3,
 #          indicator_unsm = rescale_t3index) %>%
 #   mutate(country = "Wales")
 # 
@@ -402,81 +402,35 @@
 # 
 # line_plot <- all_ind_abnd %>%
 #   filter(country == "UK") %>%
-#   plot_ly(x = ~year, y = ~upper, type = 'scatter', mode = 'lines',
+#   plot_ly(x = ~year, y = ~upper*100, type = 'scatter', mode = 'lines',
 #           line = list(color = 'transparent'),
 #           showlegend = FALSE, name = 'Upper CI') %>%
-#   add_trace(y = ~lower, type = 'scatter', mode = 'lines',
-#             fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)', 
-#             line = list(color = 'transparent'),
-#             showlegend = FALSE, name = 'Lower CI') %>%
-#   add_trace(y = ~indicator, type = 'scatter', mode = 'lines',
-#             line = list(color='rgba(0,100,80)'),
-#             name = 'Indicator') %>%
-#   add_trace(y = ~indicator_unsm, type = 'scatter', mode = 'markers',
-#             # line = list(color='rgba(0,100,80)'),
-#             name = 'Indicator unsmoothed') %>%
-#   layout(xaxis = list(title = 'Year'), 
-#          yaxis = list(range = c(0, max(all_ind_abnd$upper)+5),
-#                       title = 'Abundance index'))
-# 
-# 
-# line_plot <- all_ind_abnd %>%
-#   filter(country == "UK") %>%
-#   plot_ly(x = ~year, y = ~indicator_unsm*100, type = 'scatter', mode = 'markers',
-#           name = 'Index unsmoothed',
-#           color = 'rgba(0,100,80)') %>%
-#   add_trace(y = ~upper*100, type = 'scatter', mode = 'lines',
-#             line = list(color = 'transparent'),
-#             showlegend = FALSE, name = 'Upper CI') %>%
 #   add_trace(y = ~lower*100, type = 'scatter', mode = 'lines',
-#             fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)', 
+#             fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)',
 #             line = list(color = 'transparent'),
 #             showlegend = FALSE, name = 'Lower CI') %>%
 #   add_trace(y = ~indicator*100, type = 'scatter', mode = 'lines',
 #             line = list(color='rgba(0,100,80)'),
 #             name = 'Indicator') %>%
-#   layout(xaxis = list(title = 'Year'), 
-#          yaxis = list(range = c(0, 125),
+#   add_trace(y = ~indicator_unsm*100, type = 'scatter', mode = 'markers',
+#             marker = list(color='rgb(0,100,80)'),
+#             name = 'Indicator unsmoothed') %>%
+#   layout(xaxis = list(title = 'Year'),
+#          yaxis = list(range = c(0, max(all_ind_abnd$upper*100)+5),
 #                       title = 'Abundance index'))
 # 
 # 
-# airq %>% 
-#   plot_ly(x = ~Wind, name = 'Scatter') %>% 
-#   add_markers(y = ~Ozone) %>% 
-#   add_ribbons(data = augment(fit,se_fit = TRUE),
-#               ymin = ~.fitted - 1.96 * .se.fit,
-#               ymax = ~.fitted + 1.96 * .se.fit,
-#               line = list(color = 'rgba(7, 164, 181, 0.05)'),
-#               fillcolor = 'rgba(7, 164, 181, 0.2)',
-#               name = '95% ribbon')
-# 
-# line_plot <- all_ind_abnd %>%
-#   filter(country == "UK") %>%
-#   plot_ly(x = ~year) %>%
-#   add_markers(y = ~indicator_unsm*100, name = "Index unsmoothed",
-#               colors = "green", showlegend = FALSE) %>% 
-#   add_ribbons(ymin = ~lower*100,
-#               ymax = ~upper*100,
-#               line = list(color = 'rgba(0,100,80,0.2)'),
-#               fillcolor = 'rgba(0,100,80,0.2)',
-#               name = '95% Credible Interval', showlegend = FALSE) %>%
-#   add_trace(y = ~indicator*100, type = 'scatter', mode = 'lines',
-#             line = list(color='rgba(0,100,80)'),
-#             name = 'Indicator', showlegend = FALSE) %>%
-#   layout(xaxis = list(title = 'Year'), 
-#          yaxis = list(range = c(0, 125),
-#                       title = 'Abundance index'))
 # 
 # barplot <- abnd_cat_data %>%
 #   filter(country == "UK") %>%
 #   plot_ly(x = ~period, y = ~cat_prop/100,
 #           type = "bar", showlegend=FALSE,
-#           color = ~cat_chg) %>% 
+#           color = ~cat_chg) %>%
 #   layout(barmode = "stack",
 #          xaxis = list(title = '', tickvals = c('short-term', 'long-term'),
 #                       ticktext = c('Short term', 'Long term')),
 #          yaxis = list(title = 'Proportion of species',
-#                       hoverformat = '.2%'))  
+#                       hoverformat = '.2%'))
 # 
-# subplot(line_plot,barplot, widths = c(0.7, 0.3)) |> 
+# subplot(line_plot,barplot, widths = c(0.7, 0.3)) |>
 #   layout(title = "")

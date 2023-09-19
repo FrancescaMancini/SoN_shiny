@@ -69,7 +69,11 @@ ind_occ_plot <- reactive({
                    xaxis = list(title = '', tickvals = c('st', 'lt'),
                                 ticktext = c('Short term', 'Long term')),
                    yaxis = list(title = 'Proportion of species',
-                                hoverformat = '.2%'))  
+                                hoverformat = '.2%',
+                                zeroline = FALSE,
+                                showline = FALSE,
+                                showticklabels = FALSE,
+                                showgrid = FALSE))  
   
  subplot(line_plot,barplot, widths = c(0.7, 0.3)) |> 
     layout(title = "")
@@ -130,20 +134,23 @@ ind_abnd_plot <- reactive({
   ind_abnd_data <- isolate(ind_abnd_data())
   spp_abnd_data <- isolate(spp_abnd_data())
   
+  
   line_plot <- ind_abnd_data %>%
-    plot_ly(x = ~year) %>%
-    add_markers(y = ~indicator_unsm*100, name = "Index unsmoothed",
-                colors = "green", showlegend = FALSE) %>% 
-    add_ribbons(ymin = ~lower*100,
-                ymax = ~upper*100,
-                line = list(color = 'rgba(0,100,80,0.2)'),
-                fillcolor = 'rgba(0,100,80,0.2)',
-                name = '95% Credible Interval', showlegend = FALSE) %>%
+    plot_ly(x = ~year, y = ~upper*100, type = 'scatter', mode = 'lines',
+            line = list(color = 'transparent'),
+            showlegend = FALSE, name = 'Upper CI') %>%
+    add_trace(y = ~lower*100, type = 'scatter', mode = 'lines',
+              fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)',
+              line = list(color = 'transparent'),
+              showlegend = FALSE, name = 'Lower CI') %>%
     add_trace(y = ~indicator*100, type = 'scatter', mode = 'lines',
               line = list(color='rgba(0,100,80)'),
-              name = 'Indicator', showlegend = FALSE) %>%
-    layout(xaxis = list(title = 'Year'), 
-           yaxis = list(range = c(0, 125),
+              name = 'Indicator') %>%
+    add_trace(y = ~indicator_unsm*100, type = 'scatter', mode = 'markers',
+              marker = list(color='rgb(0,100,80)'),
+              name = 'Indicator unsmoothed') %>%
+    layout(xaxis = list(title = 'Year'),
+           yaxis = list(range = c(0, max(ind_abnd_data$indicator_unsm*100)+5),
                         title = 'Abundance index'))
   
   barplot <- spp_abnd_data %>%
@@ -154,7 +161,11 @@ ind_abnd_plot <- reactive({
            xaxis = list(title = '', tickvals = c('short-term', 'long-term'),
                         ticktext = c('Short term', 'Long term')),
            yaxis = list(title = 'Proportion of species',
-                        hoverformat = '.2%'))   
+                        hoverformat = '.2%',
+                        zeroline = FALSE,
+                        showline = FALSE,
+                        showticklabels = FALSE,
+                        showgrid = FALSE))   
   
   subplot(line_plot,barplot, widths = c(0.7, 0.3)) |> 
     layout(title = "")
