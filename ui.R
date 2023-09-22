@@ -53,7 +53,15 @@
                       h2("What time period does the report cover?"),
                       p("We in general show abundance trends in species from 1970 to 2021 and distribution trends from 1970 to 2020. We refer to this as our long-term period. Our short-term period covers the final 10 years of an indicator, often 2010 to 2020.")),
                column(5, 
-                      imageOutput("interpretation_plot"))
+                      imageOutput("interpretation_plot")),
+               column(12,
+                      h1("State of Nature Data"),
+                      p("The data shared here is provided on the following conditions,"),
+                      p("1. The graphs and data downloaded will be used solely to represent UK and UK country multi taxa species abundance indicators, and UK and UK country occupancy indicators."),
+                      p("2. The graphs and data remain the intellectual property of the providers and should be cited as: Burns, F, Mordue, S, al Fulaij, N, Boersch-Supan, PH, Boswell, J, Boyd, RJ, Bradfer-Lawrence, T, de Ornellas, P, de Palma, A, de Zylva, P, Dennis, EB, Foster, S, Gilbert, G, Halliwell, L, Hawkins, K, Haysom, KA, Holland, MM, Hughes, J, Jackson, AC, Mancini, F, Mathews, F, McQuatters-Gollop, A, Noble, DG, O’Brien, D, Pescott, OL, Purvis, A, Simkin, J, Smith, A, Stanbury, AJ, Villemot, J, Walker, KJ, Walton, P, Webb, TJ, Williams, J, Wilson, R, Gregory, RD, 2023. State of Nature 2023, the State of Nature partnership, Available at: www.stateofnature.org.uk"),
+                      p("Copywrite of data and or/information presented here does not reside solely with the distributor (NBN). Please contact the State of Nature Partnership stateofnature@rspb.org.uk for copywrite requests."),
+                      p("Data sources and references are available in the associated metadata file below"),
+                      downloadLink("download_metadata", "Download metadata"))
              )
 
              )

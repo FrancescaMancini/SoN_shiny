@@ -27,3 +27,8 @@ abnd_countries <- sort(unique(all_ind_abnd$country))
 # read categories of change data for abundance
 
 abnd_cat_data <- readRDS("Data/abnd_cat_data.rds")
+
+
+# read metadata
+occ_meta <- readRDS("Data/occ_meta.rds")
+abnd_meta <- readRDS("Data/abnd_meta.rds")

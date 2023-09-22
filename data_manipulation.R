@@ -434,3 +434,95 @@
 # 
 # subplot(line_plot,barplot, widths = c(0.7, 0.3)) |>
 #   layout(title = "")
+# 
+# 
+# ## marine data
+# 
+# marine_ind <- read.csv(
+#   "/data/son-databucket/outputs/SoN_Shiny_data_benthic.csv"
+#   ) %>%
+#   filter(country == "UK") 
+# 
+# all_ind <- readRDS("./Data/all_occ_lambda.rds")
+# 
+# all_ind <- rbind(all_ind, marine_ind)
+# 
+# 
+# saveRDS(all_ind,
+#         "./Data/all_occ_lambda.rds")
+# 
+# ## exclude redundant info from the indicator data
+# 
+# all_ind <- readRDS("./Data/all_occ_lambda.rds") %>%
+#   select(-metric)
+# 
+# saveRDS(all_ind,
+#         "./Data/all_occ_lambda.rds")
+# 
+# 
+# all_ind_abnd <- readRDS("./Data/all_ind_abnd.rds") %>%
+#   select(-group) %>%
+#   mutate(indicator = indicator * 100,
+#          lower = lower * 100,
+#          upper = upper * 100,
+#          indicator_unsm = indicator_unsm * 100)
+# 
+# saveRDS(all_ind_abnd,
+#         "./Data/all_ind_abnd.rds")
+# 
+# 
+# ## create metadata for download
+# 
+# occ_meta <- data.frame(
+#   column_name = c("indicator",
+#                   "lower",
+#                   "upper",
+#                   "year",
+#                   "Species_Number",
+#                   "country",
+#                   "group",
+#                   "time_period",
+#                   "category",
+#                   "n_species",
+#                   "proportion_species"),
+#   description = c(
+#     "The occupancy index. Scaled to be 100 in the first year.",
+#     "Lower 95% credible interval. Uncertainty is 0 in the first year so lower is always 100 in the first year.",
+#     "Upper 95% credible interval. Uncertainty is 0 in the first year so upper is always 100 in the first year.",
+#     "The year in the time series.",
+#     "The number of species contributing to the indicator in that year. This is set to 0 for the first year.",
+#     "The country selected by the user.",
+#     "The taxonomic group selected by the user.",
+#     "The time period for the change category. One of: 'lt' - long term, from first to last year of the indicator; or 'st' - short term, the last 10 years of the indicator.",
+#     "The category of change.",
+#     "The number of species in that category of change for the time period.",
+#     "The proportion of the total number of species in that category of change for the time period.")
+# )
+# 
+# 
+# abnd_meta <- data.frame(
+#   column_name = c("indicator",
+#                   "lower",
+#                   "upper",
+#                   "indicator_unsm",
+#                   "year",
+#                   "country",
+#                   "period",
+#                   "cat_chg",
+#                   "cat_num",
+#                   "cat_prop"),
+#   description = c(
+#     "The smoothed abundance index. Scaled to be 100 in the first year.",
+#     "Lower 95% credible interval. ",
+#     "Upper 95% credible interval. ",
+#     "The unsmoothed abundance index.",
+#     "The year in the time series.",
+#     "The country selected by the user.",
+#     "The time period for the change category. One of: 'long-term' - from first to last year of the indicator; or 'short-term', the last 10 years of the indicator.",
+#     "The category of change",
+#     "The number of species in that category of change for the time period.",
+#     "The proportion of the total number of species in that category of change for the time period.")
+# )
+# 
+# saveRDS(occ_meta, "Data/occ_meta.rds")
+# saveRDS(abnd_meta, "Data/abnd_meta.rds")
