@@ -37,11 +37,7 @@ spp_occ_data <- eventReactive(c(# input$selected_metric,
 ind_occ_plot <- reactive({
   
   input$plot_occ  
-  # we add this so that the plot is only generated when the action button is pressed
   
-  if(input$plot_occ == 0){
-    return()
-  }
   
   ind_occ_data <- isolate(ind_occ_data())
   spp_occ_data <- isolate(spp_occ_data())
@@ -67,6 +63,9 @@ ind_occ_plot <- reactive({
                         title = 'Occupancy index',
                         hoverformat = ".2f"))
   
+  if(input$selected_occ_group == "Benthic") {
+    return(line_plot)
+  }
   
   barplot <- spp_occ_data %>%
     plot_ly(x = ~time_period, y = ~proportion_species,
@@ -89,7 +88,14 @@ ind_occ_plot <- reactive({
 
 output$indicator_occ_plot <- renderPlotly({
   
-  print(ind_occ_plot())
+  input$plot_occ  
+  # we add this so that the plot is only generated when the action button is pressed
+  
+  if(input$plot_occ == 0){
+    return()
+  }
+  
+  isolate(print(ind_occ_plot()))
   
   })
 

@@ -146,9 +146,42 @@
 #                  freshw) %>%
 #   mutate(metric = "Occupancy")
 # 
+# 
+# ## plant/bryo/lichen
+# 
+# plant_ind <- read.csv("/data/son-databucket/outputs/brc-indicators/vp_bryo_frescalo_indicators_from70.csv") %>%
+#   filter(ellenberg == "all_species") %>%
+#   rename(lower = rescale_5., indicator = rescale_50.,
+#          upper = rescale_95., year = Year, group = taxa) %>%
+#   mutate(metric = "Occupancy") %>%
+#   select(-c(Group, ellenberg, X5., X50., X95.))
+# 
+# 
+# 
+# ## put them all together
+# 
+# all_ind <- bind_rows(all_ind, plant_ind)
+# 
+# ## marine data
+# 
+# marine_ind <- read.csv(
+#   "/data/son-databucket/outputs/SoN_Shiny_data_benthic.csv"
+#   ) %>%
+#   filter(country == "UK")
+# 
+# 
+# all_ind <- bind_rows(all_ind, marine_ind)
+# 
+# ## exclude redundant info from the indicator data
+# 
+# all_ind <- select(all_ind, -metric)
+# 
 # saveRDS(all_ind,
 #         "./Data/all_occ_lambda.rds")
-
+# 
+# 
+# 
+# # category data
 # library(stringr)
 # library(dplyr)
 # 
@@ -254,24 +287,6 @@
 # 
 # saveRDS(cat_data,
 #         "./Data/cat_data.rds")
-# 
-# ## plant/bryo/lichen
-# 
-# plant_ind <- read.csv("/data/son-databucket/outputs/brc-indicators/vp_bryo_frescalo_indicators_from70.csv") %>%
-#   filter(ellenberg == "all_species") %>%
-#   rename(lower = rescale_5., indicator = rescale_50., 
-#          upper = rescale_95., year = Year, group = taxa) %>%
-#   mutate(metric = "Occupancy") %>%
-#   select(-c(Group, ellenberg, X5., X50., X95.))
-# 
-# 
-# 
-# ## put them all together
-# 
-# all_ind <- bind_rows(all_ind, plant_ind)
-# 
-# saveRDS(all_ind,
-#         "./Data/all_occ_lambda.rds")
 # 
 
 # # interpretation plot
@@ -400,6 +415,17 @@
 # saveRDS(abnd_cat_data, "./Data/abnd_cat_data.rds")
 # 
 # 
+## exclude redundant info
+# all_ind_abnd <- readRDS("./Data/all_ind_abnd.rds") %>%
+#   select(-group) %>%
+#   mutate(indicator = indicator * 100,
+#          lower = lower * 100,
+#          upper = upper * 100,
+#          indicator_unsm = indicator_unsm * 100)
+# 
+# saveRDS(all_ind_abnd,
+#         "./Data/all_ind_abnd.rds")
+
 # line_plot <- all_ind_abnd %>%
 #   filter(country == "UK") %>%
 #   plot_ly(x = ~year, y = ~upper*100, type = 'scatter', mode = 'lines',
@@ -436,41 +462,7 @@
 #   layout(title = "")
 # 
 # 
-# ## marine data
-# 
-# marine_ind <- read.csv(
-#   "/data/son-databucket/outputs/SoN_Shiny_data_benthic.csv"
-#   ) %>%
-#   filter(country == "UK") 
-# 
-# all_ind <- readRDS("./Data/all_occ_lambda.rds")
-# 
-# all_ind <- rbind(all_ind, marine_ind)
-# 
-# 
-# saveRDS(all_ind,
-#         "./Data/all_occ_lambda.rds")
-# 
-# ## exclude redundant info from the indicator data
-# 
-# all_ind <- readRDS("./Data/all_occ_lambda.rds") %>%
-#   select(-metric)
-# 
-# saveRDS(all_ind,
-#         "./Data/all_occ_lambda.rds")
-# 
-# 
-# all_ind_abnd <- readRDS("./Data/all_ind_abnd.rds") %>%
-#   select(-group) %>%
-#   mutate(indicator = indicator * 100,
-#          lower = lower * 100,
-#          upper = upper * 100,
-#          indicator_unsm = indicator_unsm * 100)
-# 
-# saveRDS(all_ind_abnd,
-#         "./Data/all_ind_abnd.rds")
-# 
-# 
+ 
 # ## create metadata for download
 # 
 # occ_meta <- data.frame(
