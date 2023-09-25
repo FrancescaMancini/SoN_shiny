@@ -151,10 +151,10 @@ ind_abnd_data <- eventReactive(input$selected_abnd_country,
       filter(country == isolate(input$selected_abnd_country))
   })
 
-spp_abnd_data <- eventReactive(input$selected_occ_country,
+spp_abnd_data <- eventReactive(input$selected_abnd_country,
   {
     abnd_cat_data %>%
-      filter(country == isolate(input$selected_occ_country)) 
+      filter(country == isolate(input$selected_abnd_country)) 
   })
 
 ind_abnd_plot <- reactive({
@@ -223,7 +223,7 @@ output$indicator_abnd_plot <- renderPlotly({
 output$download_abnd_data <- downloadHandler(
   filename = function() {
     paste0(paste("Abundance_all_species",
-                 input$selected_occ_country,
+                 input$selected_abnd_country,
                  sep = "_"), ".xlsx")
   },
   content = function(file) {
