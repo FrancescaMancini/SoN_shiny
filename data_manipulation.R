@@ -204,25 +204,25 @@
 #                "all_invert_UK_lambda.rds")
 # 
 # gather_cat_data <- function(file){
-#   
+# 
 #   ind <- readRDS(file.path("/data/son-databucket/outputs/brc-indicators",
 #                            file))
 #   ind_country <- str_trim(str_extract(file, "([:upper:]|[:space:]){2,}"))
-#   
+# 
 #   ind_group <- str_trim(gsub("_", " ", str_sub(gsub("_lambda.rds", "", file), end=-4)))
-#   
+# 
 #   st <- ind$st$species_assessment$category
-#   
+# 
 #   st <- data.frame(st, rep(as.factor("st"), length(st)))
-#   
+# 
 #   colnames(st) <- c("category","time_period")
-#   
+# 
 #   lt <- ind$lt$species_assessment$category
-#   
+# 
 #   lt <- data.frame(lt, rep(as.factor("lt"), length(lt)))
-#   
+# 
 #   colnames(lt) <- c("category","time_period")
-#   
+# 
 #   dat <- rbind(st,lt) %>%
 #     mutate(country = ind_country,
 #            group = ind_group) %>%
@@ -232,13 +232,21 @@
 #                                country == "NI" ~ "Northern Ireland",
 #                                TRUE ~ country),
 #            group = case_when(group == "all invert" ~ "All invertebrates",
-#                              TRUE ~ group)) 
+#                              TRUE ~ group))
 # 
 # }
 # 
 # cat_data <- lapply(ind_files, gather_cat_data) %>%
 #   bind_rows()
 # 
+# cat_data <- cat_data %>%
+#   mutate(category = case_when(
+#     category == "strong increase" ~ "Strong increase",
+#     category == "increase" ~ "Moderate increase",
+#     category == "no change" ~ "Little change",
+#     category == "strong decrease" ~ "Strong decrease",
+#     category == "decrease" ~ "Moderate decrease"
+#   )) 
 # 
 # ## plant category data
 # 
@@ -246,19 +254,20 @@
 #                              "Summary.csv")
 # 
 # gather_palnt_cat_data <- function(file){
-#   
+# 
 #   dat <- read.csv(file.path("/data/son-databucket/outputs/brc-indicators", file))
-#   
+# 
 #   dat <- dat %>%
 #     mutate(propnochange = 1-(propDecrease+propIncrease)) %>%
 #     relocate(propnochange, .after = propDecrease) %>%
 #     pivot_longer(propDecrease:propIncrease, names_to = "category") %>%
-#     mutate(category = case_when(category == "propIncrease" ~ "increase",
-#                                 category == "propDecrease" ~ "decrease",
-#                                 category == "propnochange" ~ "no change")) 
+#     mutate(category = case_when(category == "propIncrease" ~ "Increase",
+#                                 category == "propDecrease" ~ "Decrease",
+#                                 category == "propnochange" ~ "Little change")) 
 #   
+# 
 #   dat_exp <- dat[rep(1:nrow(dat), round(dat[,4] * dat[,1])$value),-4]
-#   
+# 
 #   dat_exp <- dat_exp %>%
 #     mutate(time_period = "lt",
 #            group = gsub("Summary.csv", "", file)) %>%
@@ -266,8 +275,8 @@
 #                              group == "lichen" ~ "Lichens",
 #                              group == "vasc" ~ "Vascular plants")) %>%
 #     select(-numTaxa)
-#   
-#   
+# 
+# 
 # }
 # 
 # 
@@ -277,18 +286,20 @@
 # 
 # cat_data <- bind_rows(cat_data, plant_cat_data) %>%
 #   mutate(category = factor(category, ordered = TRUE,
-#                            levels = c("strong decrease",
-#                                       "decrease",
-#                                       "no change", 
-#                                       "increase",
-#                                       "strong increase")),
+#                            levels = c("Strong decrease",
+#                                       "Moderate decrease",
+#                                       "Decrease",
+#                                       "Little change",
+#                                       "Moderate increase",
+#                                       "Increase",
+#                                       "Strong increase")),
 #          time_period = factor(time_period))
 # 
 # 
 # saveRDS(cat_data,
 #         "./Data/cat_data.rds")
 # 
-
+# 
 # # interpretation plot
 # 
 # int_plot <- ggplot(data = all_ind %>%
@@ -403,7 +414,7 @@
 #   mutate(country = "Wales")
 # 
 # abnd_cat_data <- bind_rows(UK_abnd_cat_data, eng_abnd_cat_data,
-#                            sco_abnd_cat_data, wal_abnd_cat_data)%>%
+#                            sco_abnd_cat_data, wal_abnd_cat_data) %>%
 #     mutate(cat_chg = factor(cat_chg, ordered = TRUE,
 #                              levels = c("Strong decrease",
 #                                         "Moderate decrease",
