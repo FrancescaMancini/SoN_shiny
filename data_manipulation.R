@@ -473,7 +473,7 @@
 #   layout(title = "")
 # 
 # 
- 
+#  
 # ## create metadata for download
 # 
 # occ_meta <- data.frame(
@@ -489,9 +489,9 @@
 #                   "n_species",
 #                   "proportion_species"),
 #   description = c(
-#     "The occupancy index. Scaled to be 100 in the first year.",
-#     "Lower 95% credible interval. Uncertainty is 0 in the first year so lower is always 100 in the first year.",
-#     "Upper 95% credible interval. Uncertainty is 0 in the first year so upper is always 100 in the first year.",
+#     "The distribution index. Scaled to be 100 in the first year.",
+#     "For invertebrates and benthic: lower 95% Bayesian credible interval. For plants, bryophytes and lichens: lower 90% uncertainty interval.",
+#     "For invertebrates and benthic: upper 95% Bayesian credible interval. For plants, bryophytes and lichens: upper 90% uncertainty interval.",
 #     "The year in the time series.",
 #     "The number of species contributing to the indicator in that year. This is set to 0 for the first year.",
 #     "The country selected by the user.",
@@ -516,8 +516,8 @@
 #                   "cat_prop"),
 #   description = c(
 #     "The smoothed abundance index. Scaled to be 100 in the first year.",
-#     "Lower 95% credible interval. ",
-#     "Upper 95% credible interval. ",
+#     "Lower 95% confidence interval. ",
+#     "Upper 95% confidence interval. ",
 #     "The unsmoothed abundance index.",
 #     "The year in the time series.",
 #     "The country selected by the user.",
@@ -529,3 +529,4 @@
 # 
 # saveRDS(occ_meta, "Data/occ_meta.rds")
 # saveRDS(abnd_meta, "Data/abnd_meta.rds")
+# 

@@ -49,18 +49,18 @@ ind_occ_plot <- reactive({
     add_ribbons(ymin = ~lower, ymax = ~upper, 
                 line = list(color = 'transparent'),
                 fillcolor = 'rgba(0,100,80,0.2)', 
-                name = '95% CI', hoverinfo = 'none',
+                name = 'Uncertainty interval (UI)', hoverinfo = 'none',
                 showlegend = TRUE) %>%
     add_lines(y = ~lower, line = list(color = 'transparent'),
-              showlegend = FALSE, name = 'Lower CI') %>%
+              showlegend = FALSE, name = 'Lower UI') %>%
     add_lines(y = ~upper, line = list(color = 'transparent'),
-              showlegend = FALSE, name = 'Upper CI') %>%
+              showlegend = FALSE, name = 'Upper UI') %>%
     add_trace(y = ~indicator, type = 'scatter', mode = 'lines',
               line = list(color='rgb(0,100,80)'),
               showlegend = TRUE, name = 'Indicator') %>%
     layout(xaxis = list(title = 'Year'), 
            yaxis = list(range = c(0, max(ind_occ_data$upper)+5),
-                        title = 'Occupancy index',
+                        title = 'Distribution index',
                         hoverformat = ".2f"))
   
   if(input$selected_occ_group == "Benthic") {
@@ -74,7 +74,7 @@ ind_occ_plot <- reactive({
     layout(barmode = "stack",
            xaxis = list(title = '', tickvals = c('st', 'lt'),
                         ticktext = c('Short term', 'Long term')),
-           yaxis = list(title = 'Proportion of species',
+           yaxis = list(title = 'Percentage of species',
                         hoverformat = '.0%',
                         tickvals = list(0, 0.25, 0.5, 0.75, 1),
                         tickformat = '.0%'))  
@@ -102,7 +102,7 @@ output$indicator_occ_plot <- renderPlotly({
 
 output$download_occ_data <- downloadHandler(
   filename = function() {
-    paste0(paste("Occupancy",
+    paste0(paste("Distribution",
                  input$selected_occ_group,
                  input$selected_occ_country,
                  sep = "_"), ".xlsx")
@@ -176,12 +176,12 @@ ind_abnd_plot <- reactive({
     add_ribbons(ymin = ~lower, ymax = ~upper, 
                 line = list(color = 'transparent'),
                 fillcolor = 'rgba(0,100,80,0.2)', 
-                name = '95% CI', hoverinfo = 'none',
+                name = 'Uncertainty interval (UI)', hoverinfo = 'none',
                 showlegend = TRUE) %>%
     add_lines(y = ~lower, line = list(color = 'transparent'),
-              showlegend = FALSE, name = 'Lower CI') %>%
+              showlegend = FALSE, name = 'Lower UI') %>%
     add_lines(y = ~upper, line = list(color = 'transparent'),
-              showlegend = FALSE, name = 'Upper CI') %>%
+              showlegend = FALSE, name = 'Upper UI') %>%
     add_trace(y = ~indicator, type = 'scatter', mode = 'lines',
               line = list(color='rgb(0,100,80)'),
               showlegend = TRUE, name = 'Indicator') %>%
@@ -200,7 +200,7 @@ ind_abnd_plot <- reactive({
     layout(barmode = "stack",
            xaxis = list(title = '', tickvals = c('short-term', 'long-term'),
                         ticktext = c('Short term', 'Long term')),
-           yaxis = list(title = 'Proportion of species',
+           yaxis = list(title = 'Percentage of species',
                         position = "right",
                         hoverformat = '.0%',
                         tickvals = list(0, 0.25, 0.5, 0.75, 1),
