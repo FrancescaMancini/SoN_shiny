@@ -300,23 +300,22 @@
 #         "./Data/cat_data.rds")
 # 
 # 
-# # interpretation plot
+# interpretation plot
 # 
 # int_plot <- ggplot(data = all_ind %>%
-#                      filter(metric == "Occupancy") %>%
 #                      filter(group == "All invertebrates") %>%
-#                      filter(country == "UK"), 
-#                    aes(x = year, y = indicator)) + 
+#                      filter(country == "UK"),
+#                    aes(x = year, y = indicator)) +
 #   geom_line(colour = "black") +
 #   geom_ribbon(
 #     aes(x = year, ymax = upper, ymin = lower),
 #     fill = "black", alpha = 0.3) +
 #   xlab("Year") +
-#   ylab("Occupancy index") +
+#   ylab("Distribution index") +
 #   theme_minimal() +
 #   theme(text = element_text(size = 20))
 # 
-# png("Data/interpretation_plot.png", height = 5, 
+# png("Data/interpretation_plot.png", height = 5,
 #     width = 7, units = "in", res = 300)
 # int_plot
 # dev.off()
