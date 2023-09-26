@@ -5,8 +5,9 @@ account: framan
 server: connect-apps.ceh.ac.uk
 hostUrl: https://connect-apps.ceh.ac.uk/__api__
 appId: 273
-bundleId: 13615
+bundleId: 13627
 url: https://connect-apps.ceh.ac.uk/state-of-nature-shiny/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: recording.log

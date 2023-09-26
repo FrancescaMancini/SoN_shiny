@@ -246,7 +246,7 @@
 #     category == "no change" ~ "Little change",
 #     category == "strong decrease" ~ "Strong decrease",
 #     category == "decrease" ~ "Moderate decrease"
-#   )) 
+#   ))
 # 
 # ## plant category data
 # 
@@ -263,8 +263,8 @@
 #     pivot_longer(propDecrease:propIncrease, names_to = "category") %>%
 #     mutate(category = case_when(category == "propIncrease" ~ "Increase",
 #                                 category == "propDecrease" ~ "Decrease",
-#                                 category == "propnochange" ~ "Little change")) 
-#   
+#                                 category == "propnochange" ~ "Little change"))
+# 
 # 
 #   dat_exp <- dat[rep(1:nrow(dat), round(dat[,4] * dat[,1])$value),-4]
 # 
@@ -286,13 +286,13 @@
 # 
 # cat_data <- bind_rows(cat_data, plant_cat_data) %>%
 #   mutate(category = factor(category, ordered = TRUE,
-#                            levels = c("Strong decrease",
-#                                       "Moderate decrease",
-#                                       "Decrease",
-#                                       "Little change",
+#                            levels = c("Strong increase",
 #                                       "Moderate increase",
 #                                       "Increase",
-#                                       "Strong increase")),
+#                                       "Little change",
+#                                       "Decrease",
+#                                       "Moderate decrease",
+#                                       "Strong decrease")),
 #          time_period = factor(time_period))
 # 
 # 
@@ -415,11 +415,11 @@
 # abnd_cat_data <- bind_rows(UK_abnd_cat_data, eng_abnd_cat_data,
 #                            sco_abnd_cat_data, wal_abnd_cat_data) %>%
 #     mutate(cat_chg = factor(cat_chg, ordered = TRUE,
-#                              levels = c("Strong decrease",
-#                                         "Moderate decrease",
-#                                         "Little change",
+#                              levels = c("Strong increase",
 #                                         "Moderate increase",
-#                                         "Strong increase")),
+#                                         "Little change",
+#                                         "Moderate decrease",
+#                                         "Strong decrease")),
 #            period = factor(period))
 # 
 # saveRDS(abnd_cat_data, "./Data/abnd_cat_data.rds")
