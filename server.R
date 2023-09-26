@@ -184,10 +184,10 @@ ind_abnd_plot <- reactive({
               showlegend = FALSE, name = 'Upper UI') %>%
     add_trace(y = ~indicator, type = 'scatter', mode = 'lines',
               line = list(color='rgb(0,100,80)'),
-              showlegend = TRUE, name = 'Indicator') %>%
+              showlegend = TRUE, name = 'Smoothed indicator') %>%
       add_trace(y = ~indicator_unsm, type = 'scatter', mode = 'markers',
                 marker = list(color='rgb(0,100,80)'),
-                name = 'Indicator unsmoothed', showlegend = TRUE) %>%
+                name = 'Unsmoothed indicator', showlegend = TRUE) %>%
       layout(xaxis = list(title = 'Year'),
              yaxis = list(range = c(0, max(ind_abnd_data$indicator_unsm)+5),
                           title = 'Abundance index',
