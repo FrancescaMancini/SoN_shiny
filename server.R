@@ -277,7 +277,7 @@ output$interpretation_plot <- renderImage({
 output$download_metadata <- downloadHandler(
   filename="SoN_metadata.xlsx",  # desired file name on client 
   content=function(con) {
-    file.copy("Data/stateofnature2023_datasources_metadata - CopyToUpdate.xlsx", con)
+    file.copy("Data/stateofnature2023_datasources_metadata.xlsx", con)
   },
   contentType = "file/xlsx"
 )
