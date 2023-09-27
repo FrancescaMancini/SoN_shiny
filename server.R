@@ -117,7 +117,7 @@ output$download_occ_data <- downloadHandler(
               sheet = "Metadata",
               startCol = 1,startRow = 16)
     writeData(wb, 
-              "1. The graphs and data downloaded will be used solely to represent UK and UK country multi taxa species abundance indicators, and UK and UK country occupancy indicators.",
+              "1. The graphs and data downloaded will be used solely to represent UK and UK country multi taxa species abundance indicators, and UK and UK country distribution indicators.",
               sheet = "Metadata",
               startCol = 1, startRow = 17)
     writeData(wb, 
@@ -236,7 +236,7 @@ output$download_abnd_data <- downloadHandler(
               sheet = "Metadata",
               startCol = 1,startRow = 16)
     writeData(wb, 
-              "1. The graphs and data downloaded will be used solely to represent UK and UK country multi taxa species abundance indicators, and UK and UK country occupancy indicators.",
+              "1. The graphs and data downloaded will be used solely to represent UK and UK country multi taxa species abundance indicators, and UK and UK country distribution indicators.",
               sheet = "Metadata",
               startCol = 1, startRow = 17)
     writeData(wb, 
